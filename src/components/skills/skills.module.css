@@ -14,14 +14,16 @@
   color: var(--ink);
 }
 
-/* Mobile: heading, then the rings (wider than the screen, cropped), then the
-   card. Desktop: rings sit behind everything on the right. */
+/* Mobile: heading, then the rings (screen width, up to 500px, with nothing
+   on top of them), then the card. Desktop: rings sit behind everything on
+   the right. */
 .rings {
   order: 2;
   flex: none;
-  width: 150vw;
+  align-self: center;
+  width: min(100vw, 500px);
   max-width: none;
-  margin: calc(-1 * var(--space-12)) 0 calc(-1 * var(--space-12)) calc(50% - 75vw);
+  margin: var(--space-2) 0 var(--space-3);
   pointer-events: none;
 }
 
@@ -33,7 +35,7 @@
 
 .ringLabel {
   fill: var(--ink);
-  font-size: 17px;
+  font-size: 30px;
   letter-spacing: 0.04em;
 }
 
@@ -49,7 +51,7 @@
 .nodeLabel {
   fill: var(--ink);
   font-family: var(--font-jetbrains-mono), monospace;
-  font-size: 16px;
+  font-size: 28px;
 }
 
 .layout {
@@ -125,6 +127,14 @@
     align-items: flex-end;
     min-height: 100svh;
     padding-block: var(--space-16);
+  }
+
+  .ringLabel {
+    font-size: 17px;
+  }
+
+  .nodeLabel {
+    font-size: 16px;
   }
 
   .rings {

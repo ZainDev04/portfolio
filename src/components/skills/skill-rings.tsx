@@ -57,7 +57,12 @@ export function SkillRings({ rings }: { rings: Ring[] }) {
       <defs>
         {rings.map((_, i) => {
           const r = INNER + i * GAP;
-          return <path key={i} id={`ring-path-${i}`} d={`M ${C - r} ${C} a ${r} ${r} 0 1 1 ${2 * r} 0 a ${r} ${r} 0 1 1 ${-2 * r} 0`} />;
+          return (
+            <g key={i}>
+              <path id={`ring-cw-${i}`} d={loopPath(r, 1)} />
+              <path id={`ring-ccw-${i}`} d={loopPath(r, 0)} />
+            </g>
+          );
         })}
       </defs>
       {rings.map((ring, i) => {
@@ -65,28 +70,80 @@ export function SkillRings({ rings }: { rings: Ring[] }) {
         return (
           <g key={ring.label} data-ring>
             <circle className={styles.ringLine} cx={C} cy={C} r={r} />
-            <text className={styles.ringLabel} dy={-8}>
-              <textPath href={`#ring-path-${i}`} startOffset={`${8 + i * 7}%`}>
-                {ring.label}
-              </textPath>
-            </text>
-            {ring.tools.map((tool, t) => {
-              const angle = (i * 57 + t * (360 / (ring.tools.length + 1)) + 20) * (Math.PI / 180);
-              // Rounded so server and browser render the same string.
-              const x = Math.round((C + Math.cos(angle) * r) * 10) / 10;
-              const y = Math.round((C + Math.sin(angle) * r) * 10) / 10;
-              return (
-                <g key={tool} transform={`translate(${x} ${y})`}>
-                  <circle className={t === 0 ? styles.nodeAccent : styles.node} r={t === 0 ? 11 : 16} />
-                  <text className={styles.nodeLabel} x={22} dy={5}>
-                    {tool}
-                  </text>
-                </g>
-              );
-            })}
+            {layoutRing(ring, i).map((item) => (
+              <g key={item.text}>
+                {item.dot && (
+                  <circle
+                    className={item.accent ? styles.nodeAccent : styles.node}
+                    cx={item.dot.x}
+                    cy={item.dot.y}
+                    r={item.accent ? 11 : 16}
+                  />
+                )}
+                <text className={item.tool ? styles.nodeLabel : styles.ringLabel} dy={-10}>
+                  <textPath href={`#ring-${item.flip ? "ccw" : "cw"}-${i}`} startOffset={item.offset}>
+                    {item.text}
+                  </textPath>
+                </text>
+              </g>
+            ))}
           </g>
         );
       })}
     </svg>
   );
+}
+
+// A circle drawn twice from its leftmost point, clockwise (sweep 1, over the
+// top) or anticlockwise (sweep 0, under the bottom). Twice, so text that
+// starts near the end of the first turn does not get cut at the seam.
+function loopPath(r: number, sweep: 0 | 1) {
+  const turn = `a ${r} ${r} 0 1 ${sweep} ${2 * r} 0 a ${r} ${r} 0 1 ${sweep} ${-2 * r} 0`;
+  return `M ${C - r} ${C} ${turn} ${turn}`;
+}
+
+// Rough text widths in viewBox units at the phone font sizes (the largest).
+const LABEL_EM = 30 * 0.56;
+const TOOL_EM = 28 * 0.6;
+const DOT_GAP = 30;
+
+const round = (n: number) => Math.round(n * 10) / 10;
+
+// Every word on a ring is written along that ring: the area name first, then
+// each tool after its dot, spread evenly so nothing overlaps. Words on the
+// lower half run along the anticlockwise path so they read upright.
+function layoutRing(ring: Ring, i: number) {
+  const r = INNER + i * GAP;
+  const circ = 2 * Math.PI * r;
+  const items = [
+    { text: ring.label, tool: false, len: ring.label.length * LABEL_EM },
+    ...ring.tools.map((tool) => ({ text: tool, tool: true, len: DOT_GAP + tool.length * TOOL_EM })),
+  ];
+  const gap = (circ - items.reduce((sum, it) => sum + it.len, 0)) / items.length;
+
+  // Centre the area name a little left of the top, shifting ring by ring.
+  const labelMid = ((70 + i * 16) * Math.PI) / 180;
+  let s = labelMid * r - items[0].len / 2;
+
+  return items.map((item, t) => {
+    const from = s;
+    s += item.len + gap;
+    const mid = Math.PI + (from + item.len / 2) / r;
+    const flip = Math.sin(mid) > 0;
+    // Where the word starts on the path it is drawn along.
+    const start = mod(flip ? -(from + item.len) : from, circ);
+    const angle = flip ? Math.PI - start / r : Math.PI + start / r;
+    return {
+      text: item.text,
+      tool: item.tool,
+      accent: t === 1,
+      flip,
+      offset: round(item.tool ? start + DOT_GAP : start),
+      dot: item.tool ? { x: round(C + Math.cos(angle) * r), y: round(C + Math.sin(angle) * r) } : null,
+    };
+  });
+}
+
+function mod(n: number, m: number) {
+  return ((n % m) + m) % m;
 }
