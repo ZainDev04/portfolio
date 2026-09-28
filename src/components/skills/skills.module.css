@@ -129,19 +129,11 @@
     padding-block: var(--space-16);
   }
 
-  .ringLabel {
-    font-size: 17px;
-  }
-
-  .nodeLabel {
-    font-size: 16px;
-  }
-
   .rings {
     position: absolute;
     top: 50%;
-    left: 58%;
-    width: min(92vh, 62vw);
+    left: 38%;
+    width: min(88vh, 50vw);
     margin: 0;
     translate: -50% -50%;
   }
@@ -163,5 +155,19 @@
 @media (min-width: 1200px) {
   .skills {
     padding-inline: var(--space-16) var(--edge);
+  }
+
+  .rings {
+    top: 44%;
+    left: 48%;
+    width: min(84vh, 52vw);
+  }
+
+  .ringLabel {
+    font-size: 20px;
+  }
+
+  .nodeLabel {
+    font-size: 19px;
   }
 }
