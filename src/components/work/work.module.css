@@ -61,6 +61,23 @@
   display: none;
 }
 
+/* Room after the last slide so it can align left like the others on any
+   width (otherwise wider phones show a sliver of the previous project). */
+.track::after {
+  content: "";
+  flex: none;
+  width: max(0px, calc(16vw - var(--edge)));
+}
+
+.counter {
+  min-width: var(--space-8);
+  margin: 0;
+  color: var(--nav-grey);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: var(--fs-small);
+  text-align: center;
+}
+
 .slide {
   flex: none;
   display: flex;
@@ -123,6 +140,7 @@
 
 .controls {
   display: flex;
+  align-items: center;
   justify-content: center;
   gap: var(--space-2);
 }
