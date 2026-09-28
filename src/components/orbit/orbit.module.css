@@ -281,6 +281,63 @@
   opacity: 1;
 }
 
+/* Moving through the row: the new project slides in from the side you're
+   heading toward (420ms) while fading in; thumbnails and caption follow. */
+.rowMain[data-dir="1"] {
+  animation: row-main-next 420ms var(--ease) both;
+}
+
+.rowMain[data-dir="-1"] {
+  animation: row-main-prev 420ms var(--ease) both;
+}
+
+.rowThumb[data-dir="1"] {
+  animation: row-thumb-next 420ms var(--ease) both;
+}
+
+.rowThumb[data-dir="-1"] {
+  animation: row-thumb-prev 420ms var(--ease) both;
+}
+
+.rowCaption[data-dir] {
+  animation: row-caption-in 420ms var(--ease) both;
+}
+
+@keyframes row-main-next {
+  from {
+    opacity: 0;
+    transform: translateX(14%) scale(0.96);
+  }
+}
+
+@keyframes row-main-prev {
+  from {
+    opacity: 0;
+    transform: translateX(-14%) scale(0.96);
+  }
+}
+
+@keyframes row-thumb-next {
+  from {
+    opacity: 0;
+    transform: translateX(60%);
+  }
+}
+
+@keyframes row-thumb-prev {
+  from {
+    opacity: 0;
+    transform: translateX(-60%);
+  }
+}
+
+@keyframes row-caption-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-1));
+  }
+}
+
 .rowMain img,
 .rowThumb img {
   display: block;
@@ -367,5 +424,11 @@
   .progress span {
     animation: none;
     width: 100%;
+  }
+
+  .rowMain[data-dir],
+  .rowThumb[data-dir],
+  .rowCaption[data-dir] {
+    animation: none;
   }
 }

@@ -67,6 +67,16 @@ export function OrbitSphere({
   const [rowView, setRowView] = useState(false);
   const rowViewRef = useRef(false);
   const [rowIndex, setRowIndex] = useState(0);
+  // Direction of the last move (1 = next, -1 = previous), so the row slides
+  // in from the matching side. 0 = no move yet, so no animation on open.
+  const [rowDir, setRowDir] = useState<-1 | 0 | 1>(0);
+  const showRow = useCallback(
+    (index: number, dir: -1 | 1) => {
+      setRowDir(dir);
+      setRowIndex(((index % cards.length) + cards.length) % cards.length);
+    },
+    [cards.length],
+  );
   const [rowPaused, setRowPaused] = useState(false);
 
   const project = (slug: string) => projects.find((p) => p.slug === slug);
@@ -350,9 +360,9 @@ export function OrbitSphere({
   // Row view autoplay.
   useEffect(() => {
     if (!rowView || rowPaused || prefersReducedMotion()) return;
-    const timer = window.setTimeout(() => setRowIndex((i) => (i + 1) % cards.length), ROW_STEP_MS);
+    const timer = window.setTimeout(() => showRow(rowIndex + 1, 1), ROW_STEP_MS);
     return () => window.clearTimeout(timer);
-  }, [rowView, rowPaused, rowIndex, cards.length]);
+  }, [rowView, rowPaused, rowIndex, showRow]);
 
   const focusedProject = focused !== null ? project(cards[focused].slug) : undefined;
   const rowCard = cards[rowIndex];
@@ -446,10 +456,14 @@ export function OrbitSphere({
               const info = project(c.slug);
               return (
                 <button
-                  key={`${offset}-${index}`}
+                  // Re-keyed on every move so the slide-in animation replays.
+                  key={`${offset}-${index}-${rowIndex}`}
                   type="button"
                   className={main ? styles.rowMain : styles.rowThumb}
-                  onClick={() => setRowIndex(index)}
+                  data-dir={rowDir || undefined}
+                  onClick={() => {
+                    if (!main) showRow(index, offset > 0 ? 1 : -1);
+                  }}
                   aria-label={main ? `${info?.title}, current` : `Show ${info?.title}`}
                   tabIndex={main ? -1 : 0}
                 >
@@ -469,12 +483,14 @@ export function OrbitSphere({
           <div className={styles.progress} aria-hidden="true">
             <span key={`${rowIndex}-${rowPaused}`} data-paused={rowPaused || undefined} />
           </div>
-          <div className={styles.rowCaption}>{rowProject ? <Caption info={rowProject} /> : null}</div>
+          <div key={`caption-${rowIndex}`} className={styles.rowCaption} data-dir={rowDir || undefined}>
+            {rowProject ? <Caption info={rowProject} /> : null}
+          </div>
           <div className={styles.rowArrows}>
-            <button type="button" onClick={() => setRowIndex((i) => (i - 1 + cards.length) % cards.length)} aria-label="Previous">
+            <button type="button" onClick={() => showRow(rowIndex - 1, -1)} aria-label="Previous">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 L7 12 L15 20" /></svg>
             </button>
-            <button type="button" onClick={() => setRowIndex((i) => (i + 1) % cards.length)} aria-label="Next">
+            <button type="button" onClick={() => showRow(rowIndex + 1, 1)} aria-label="Next">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 L17 12 L9 20" /></svg>
             </button>
           </div>
