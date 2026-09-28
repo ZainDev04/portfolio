@@ -183,14 +183,15 @@
   border-top: 1px solid var(--line);
 }
 
-/* Scroll hint: a thin line rising from the strip at the
-   bottom centre, with a dot running down it. */
+/* Scroll hint: a thin line rising from the strip at the bottom centre, with a
+   dot running down it. On phones the role text runs across the centre, so
+   the line is short (32px) to leave clear space above it; 92px from 768px. */
 .tick {
   position: absolute;
   bottom: 100%;
   left: 50%;
   width: 1px;
-  height: var(--space-8);
+  height: var(--space-4);
   margin-left: -0.5px;
   background: var(--line);
   pointer-events: none;
@@ -221,7 +222,7 @@
   }
   100% {
     opacity: 0;
-    transform: translateY(calc(var(--space-8) - 5px));
+    transform: translateY(calc(var(--space-4) - 5px));
   }
 }
 
@@ -229,7 +230,7 @@
   .tick i {
     animation: none;
     opacity: 0.9;
-    transform: translateY(calc(var(--space-8) / 2));
+    transform: translateY(calc(var(--space-4) / 2));
   }
 }
 
