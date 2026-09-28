@@ -1,0 +1,36 @@
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--space-6);
+  color: inherit;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.text {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  transition: text-decoration-color var(--dur-fast) var(--ease);
+}
+
+.icon {
+  flex: none;
+  width: 1.1em;
+  height: 1.1em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: rotate var(--dur-fast) var(--ease);
+}
+
+.link:hover .text {
+  text-decoration-color: var(--accent);
+}
+
+.link:hover .icon {
+  rotate: 45deg;
+}

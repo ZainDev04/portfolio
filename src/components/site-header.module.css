@@ -1,0 +1,118 @@
+/*
+ * Fixed header. Colours follow html[data-header-theme], set by the section
+ * under the header: dark (default), accent (purple panels), light (cream).
+ */
+
+.header {
+  --head-brand: var(--accent);
+  --head-nav: var(--nav-grey);
+  --head-nav-hover: var(--paper);
+  --head-fade: var(--ink);
+
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--space-2) var(--edge);
+  pointer-events: none;
+}
+
+:global(html[data-header-theme="accent"]) .header {
+  --head-fade: transparent;
+  --head-brand: var(--ink);
+  --head-nav: var(--ink);
+  --head-nav-hover: var(--ink);
+}
+
+:global(html[data-header-theme="light"]) .header {
+  --head-fade: var(--paper);
+  --head-brand: var(--accent-deep);
+  --head-nav: var(--ink);
+  --head-nav-hover: var(--accent-deep);
+}
+
+/* Soft fade behind the header so links stay readable over scrolling text. */
+.header::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 calc(-1 * var(--space-4));
+  z-index: -1;
+  background: linear-gradient(to bottom, var(--head-fade) 30%, transparent);
+  opacity: 0;
+  transition: opacity var(--dur-panel) var(--ease);
+}
+
+:global(html[data-past-hero]) .header::before {
+  opacity: 0.92;
+}
+
+.skip {
+  position: absolute;
+  top: var(--space-1);
+  left: var(--space-1);
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--space-6);
+  padding: 0 var(--space-2);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: var(--fs-small);
+  pointer-events: auto;
+  translate: 0 -200%;
+  transition: translate var(--dur-fast) var(--ease);
+}
+
+.skip:focus-visible {
+  translate: 0 0;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.home,
+.nav a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--space-6);
+  min-height: var(--space-6);
+  pointer-events: auto;
+  text-decoration: none;
+}
+
+.home {
+  color: var(--head-brand);
+  transition: color var(--dur-panel) var(--ease);
+}
+
+.nav {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.nav a {
+  color: var(--head-nav);
+  font-size: var(--fs-nav);
+  letter-spacing: var(--track-small);
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.nav a:hover {
+  color: var(--head-nav-hover);
+}
+
+@media (min-width: 768px) {
+  .header {
+    padding-block: var(--space-4);
+  }
+
+  .nav {
+    gap: var(--space-4);
+  }
+}

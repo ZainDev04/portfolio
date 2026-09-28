@@ -1,0 +1,157 @@
+/*
+ * Skills: light scene on paper. Text on paper is ink, or accent-deep for
+ * the purple word (4.7:1 or better with every accent's deep partner).
+ * Mobile first, desktop from 768px.
+ */
+
+.skills {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: var(--space-16) var(--edge) var(--space-12);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* Mobile: heading, then the rings (wider than the screen, cropped), then the
+   card. Desktop: rings sit behind everything on the right. */
+.rings {
+  order: 2;
+  flex: none;
+  width: 150vw;
+  max-width: none;
+  margin: calc(-1 * var(--space-12)) 0 calc(-1 * var(--space-12)) calc(50% - 75vw);
+  pointer-events: none;
+}
+
+.ringLine {
+  fill: none;
+  stroke: var(--ring-light);
+  stroke-width: 1.5;
+}
+
+.ringLabel {
+  fill: var(--ink);
+  font-size: 17px;
+  letter-spacing: 0.04em;
+}
+
+.node {
+  fill: var(--ink);
+}
+
+.nodeAccent {
+  fill: var(--accent-deep);
+  transition: fill var(--dur-panel) var(--ease);
+}
+
+.nodeLabel {
+  fill: var(--ink);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 16px;
+}
+
+.layout {
+  display: contents;
+}
+
+.title {
+  position: relative;
+  order: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.accent {
+  color: var(--accent-deep);
+  transition: color var(--dur-panel) var(--ease);
+}
+
+.card {
+  position: relative;
+  order: 3;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border-radius: var(--space-3);
+  background: var(--accent);
+  color: var(--ink);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  transition: background-color var(--dur-panel) var(--ease);
+}
+
+.card p {
+  margin: 0;
+}
+
+.areas {
+  display: grid;
+  gap: var(--space-1);
+  margin: var(--space-1) 0 0;
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--ink);
+  font-size: var(--fs-small);
+}
+
+.areas div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-0-5) var(--space-2);
+}
+
+.areas dt {
+  font-weight: 700;
+}
+
+.areas dd {
+  margin: 0;
+}
+
+.close {
+  font-weight: 700;
+}
+
+@media (min-width: 768px) {
+  .skills {
+    flex-direction: row;
+    align-items: flex-end;
+    min-height: 100svh;
+    padding-block: var(--space-16);
+  }
+
+  .rings {
+    position: absolute;
+    top: 50%;
+    left: 58%;
+    width: min(92vh, 62vw);
+    margin: 0;
+    translate: -50% -50%;
+  }
+
+  .layout {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .card {
+    width: min(440px, 42vw);
+  }
+}
+
+@media (min-width: 1200px) {
+  .skills {
+    padding-inline: var(--space-16) var(--edge);
+  }
+}

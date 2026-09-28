@@ -1,0 +1,308 @@
+/*
+ * Work: heading, draggable orbit of project screenshots, then the project
+ * index with full details. Dark scene. Mobile first, desktop from 768px.
+ */
+
+.work {
+  position: relative;
+  padding: var(--space-8) 0 var(--space-12);
+  background: var(--ink);
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: 0 var(--edge);
+}
+
+.label {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.accent {
+  color: var(--accent);
+}
+
+/* Mobile carousel (hidden from 768px, where the orbit sphere shows the work) */
+
+.carousel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.track {
+  display: flex;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0 var(--edge);
+  overflow-x: auto;
+  list-style: none;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--edge);
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.slide {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 84vw;
+  scroll-snap-align: start;
+}
+
+.slideLink {
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--black);
+}
+
+.slideLink img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slideTitle {
+  margin: var(--space-1) 0 0;
+  font-size: var(--fs-body);
+  font-weight: 700;
+}
+
+.slideContext {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-small);
+}
+
+/* Card for a project without a screenshot (StepGuard). */
+.textCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-1);
+  height: 100%;
+  padding: var(--space-4);
+  background: var(--accent);
+  color: var(--ink);
+}
+
+.textCardTitle {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.textCardMeta {
+  font-size: var(--fs-small);
+  font-weight: 700;
+  letter-spacing: var(--track-small);
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.arrow {
+  display: grid;
+  place-items: center;
+  width: var(--space-6);
+  height: var(--space-6);
+  border: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color var(--dur-panel) var(--ease);
+}
+
+.arrow svg {
+  width: var(--space-2);
+  height: var(--space-2);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Project index */
+
+.index {
+  display: flex;
+  flex-direction: column;
+  margin: var(--space-12) var(--edge) 0;
+  padding: 0;
+  list-style: none;
+  scroll-margin-top: var(--space-12);
+}
+
+.row {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-6) 0;
+  border-top: 1px solid var(--line);
+  scroll-margin-top: var(--space-12);
+}
+
+.row:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.num {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: var(--fs-small);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.status {
+  padding: var(--space-0-5) var(--space-1);
+  border: 1px solid var(--accent);
+  border-radius: var(--space-3);
+  color: var(--accent);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  letter-spacing: var(--track-small);
+  text-transform: uppercase;
+}
+
+.context {
+  margin: 0;
+  color: var(--accent);
+  font-size: var(--fs-body);
+  font-weight: 700;
+}
+
+.summary {
+  margin: var(--space-1) 0 0;
+  max-width: 60ch;
+  color: var(--paper);
+  font-size: var(--fs-body);
+  line-height: 1.55;
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--fs-body);
+  line-height: 1.4;
+}
+
+.results li {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.results li::before {
+  content: "";
+  flex: none;
+  width: var(--space-1);
+  height: var(--space-1);
+  margin-top: 0.5em;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stack li {
+  padding: var(--space-0-5) var(--space-1);
+  border: 1px solid var(--line);
+  border-radius: var(--space-3);
+  color: var(--nav-grey);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: var(--fs-small);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--space-3);
+  font-size: var(--fs-body);
+}
+
+@media (min-width: 768px) {
+  .work {
+    padding-top: var(--space-16);
+  }
+
+  .carousel {
+    display: none;
+  }
+
+  .row {
+    grid-template-columns: var(--space-8) 1.3fr 1fr;
+    gap: var(--space-6);
+  }
+
+  .num {
+    padding-top: var(--space-1);
+  }
+}
+
+@media (min-width: 1200px) {
+  .head,
+  .index {
+    margin-inline: var(--space-16);
+    padding-inline: 0;
+  }
+}

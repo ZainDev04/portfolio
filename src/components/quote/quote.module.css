@@ -1,0 +1,70 @@
+/* Quote: dark scene, large purple line, one cream ring. */
+
+.quote {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--space-6);
+  padding: var(--space-12) var(--edge);
+  overflow: hidden;
+  background: var(--ink);
+}
+
+.figure {
+  margin: 0;
+}
+
+.text {
+  margin: 0;
+}
+
+.text p {
+  margin: 0;
+  max-width: 16ch;
+  color: var(--accent);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: 1.1;
+  transition: color var(--dur-panel) var(--ease);
+}
+
+.by {
+  margin-top: var(--space-2);
+  color: var(--muted);
+  font-size: var(--fs-small);
+  letter-spacing: var(--track-small);
+}
+
+.ring {
+  width: var(--space-12);
+  height: var(--space-12);
+  border: var(--space-3) solid var(--paper);
+  border-radius: 50%;
+}
+
+@media (min-width: 768px) {
+  .quote {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 70svh;
+    padding-block: var(--space-16);
+  }
+
+  .text p {
+    font-size: var(--fs-h1);
+  }
+
+  .ring {
+    width: calc(var(--space-16) * 2);
+    height: calc(var(--space-16) * 2);
+    border-width: var(--space-8);
+    margin-right: var(--space-12);
+  }
+}
+
+@media (min-width: 1200px) {
+  .quote {
+    padding-inline: var(--space-16) var(--edge);
+  }
+}

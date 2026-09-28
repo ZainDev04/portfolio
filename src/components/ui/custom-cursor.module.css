@@ -1,0 +1,81 @@
+/* Cursor dot and resting label. */
+
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.cursor[data-visible] {
+  opacity: 1;
+}
+
+.dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--space-2);
+  height: var(--space-2);
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.85;
+  translate: -50% -50%;
+  transition:
+    width var(--dur-fast) var(--ease),
+    height var(--dur-fast) var(--ease),
+    background-color 0.3s ease;
+}
+
+/* Over anything clickable the dot opens into a ring. */
+.dot[data-hover] {
+  width: var(--space-6);
+  height: var(--space-6);
+  background: color-mix(in srgb, var(--accent) 30%, transparent);
+  opacity: 1;
+}
+
+.cursor[data-on-accent] .dot {
+  border-color: var(--ink);
+  background: var(--ink);
+}
+
+.cursor[data-on-accent] .dot[data-hover] {
+  background: color-mix(in srgb, var(--ink) 20%, transparent);
+}
+
+.cursor[data-on-accent] .label {
+  color: var(--ink);
+}
+
+/* Appears once the pointer rests; flips left near the right edge. */
+.label {
+  position: absolute;
+  top: 0;
+  left: var(--space-2);
+  color: var(--accent);
+  font-size: var(--fs-small);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  translate: 0 -50%;
+  transition:
+    opacity 0.3s ease,
+    color 0.3s ease;
+}
+
+.label[data-shown] {
+  opacity: 1;
+}
+
+.label[data-left] {
+  right: var(--space-2);
+  left: auto;
+}

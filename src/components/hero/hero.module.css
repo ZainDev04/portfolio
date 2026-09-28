@@ -1,0 +1,364 @@
+/*
+ * Hero, type-led (no photo). Mobile first (375px up), desktop layout from
+ * 768px, text indent from 1200px.
+ */
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100svh;
+  overflow: hidden;
+  background: radial-gradient(120% 80% at 55% 25%, var(--ink-raised) 0%, var(--ink) 70%);
+}
+
+/* The mark: an SVG drawn in fixed units (mass radius 104.5), scaled by --k,
+   which orbit-cluster.tsx sets from the viewport. Centred at (50%, 45.5%);
+   on phones it sits higher
+   so it clears the name. When docked it is fixed under the wordmark. */
+
+.cluster {
+  --k: 0.58;
+
+  position: absolute;
+  /* Phones: at least 112px down (clear of the header), at most 400px above
+     the bottom (clear of the name), 36% otherwise. */
+  top: clamp(112px, 36%, calc(100% - 400px));
+  left: 50%;
+  z-index: 2;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  transform-origin: 0 0;
+}
+
+.orbitSvg {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  overflow: visible;
+}
+
+.orbitWorld {
+  transform: scale(var(--k));
+  animation: orbit-in 1.2s var(--ease) both;
+}
+
+@keyframes orbit-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.mass,
+.smallSat,
+.ringSat {
+  transition:
+    fill var(--dur-panel) var(--ease),
+    stroke var(--dur-panel) var(--ease);
+}
+
+.mass {
+  fill: var(--accent);
+}
+
+.smallSat {
+  fill: var(--paper);
+}
+
+.ringSat {
+  fill: none;
+  stroke: var(--paper);
+}
+
+.guide {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.focus {
+  fill: var(--accent);
+}
+
+.coord {
+  fill: var(--accent);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: calc(12px / var(--k));
+}
+
+/* Docked as the logo: no orbit guides, and colours that stay visible on the
+   section behind the header (ink on purple, ink and deep purple on cream). */
+.cluster[data-docked] :is(.guide, .focus, .coord) {
+  opacity: 0;
+}
+
+:global(html[data-header-theme="accent"]) .cluster[data-docked] .mass {
+  fill: var(--ink);
+}
+
+:global(html[data-header-theme="light"]) .cluster[data-docked] .mass {
+  fill: var(--accent-deep);
+}
+
+:global(html[data-header-theme="light"]) .cluster[data-docked] .smallSat {
+  fill: var(--ink);
+}
+
+:global(html[data-header-theme="light"]) .cluster[data-docked] .ringSat {
+  stroke: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbitWorld {
+    animation: none;
+  }
+}
+
+/* Text: claim, name, role, stacked bottom left. */
+
+.text {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: 0 var(--edge) var(--space-8);
+}
+
+/* On phones the claim and name scale with the width (16-20px, 34-43px) so the
+   claim stays on one line and the name leaves room for the mark on small
+   screens like the iPhone SE. */
+.claim {
+  margin: 0;
+  color: var(--accent);
+  font-size: clamp(16px, 5vw, var(--fs-hero-claim));
+  font-weight: 700;
+  letter-spacing: var(--track-small);
+  line-height: 1.2;
+}
+
+.name {
+  margin: 0;
+  color: var(--paper);
+  font-size: clamp(34px, 9.5vw, var(--fs-h1));
+  font-weight: 700;
+  letter-spacing: 0.005em;
+  line-height: 1;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.stop {
+  color: var(--accent);
+}
+
+.role {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-hero-id);
+  letter-spacing: var(--track-hero-role);
+  line-height: 1.4;
+}
+
+/* Footer strip: one row at every width. Below 768 the © line shortens. */
+
+.strip {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-areas: "copy resume social";
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  column-gap: var(--space-2);
+  padding: var(--space-0-5) var(--edge);
+  border-top: 1px solid var(--line);
+}
+
+/* Scroll hint: a thin line rising from the strip at the
+   bottom centre, with a dot running down it. */
+.tick {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 1px;
+  height: var(--space-8);
+  margin-left: -0.5px;
+  background: var(--line);
+  pointer-events: none;
+}
+
+.tick i {
+  position: absolute;
+  top: 0;
+  left: -2px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--paper);
+  opacity: 0;
+  animation: tick-run 2.6s cubic-bezier(0.55, 0.06, 0.45, 0.94) infinite;
+}
+
+@keyframes tick-run {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  15% {
+    opacity: 0.9;
+  }
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(calc(var(--space-8) - 5px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tick i {
+    animation: none;
+    opacity: 0.9;
+    transform: translateY(calc(var(--space-8) / 2));
+  }
+}
+
+.copy {
+  grid-area: copy;
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-small);
+  letter-spacing: var(--track-small);
+  white-space: nowrap;
+}
+
+.copyLong {
+  display: none;
+}
+
+.resume {
+  grid-area: resume;
+  display: inline-flex;
+  align-items: center;
+  justify-self: center;
+  min-height: var(--space-6);
+  color: var(--nav-grey);
+  font-size: var(--fs-small);
+  letter-spacing: var(--track-small);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.social {
+  grid-area: social;
+  justify-self: end;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: var(--space-6);
+  height: var(--space-6);
+  color: var(--nav-grey);
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.icon svg {
+  width: var(--space-2);
+  height: var(--space-2);
+  fill: currentColor;
+}
+
+.linkedin {
+  font-size: var(--fs-nav);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.resume:hover,
+.icon:hover {
+  color: var(--paper);
+}
+
+/* 768px and up: the mark centred, text bottom left. */
+@media (min-width: 768px) {
+  .cluster {
+    top: 45.5%;
+  }
+
+  /* The name always breaks as "Shaikh Muhammad / Zain.", and on short
+     screens it shrinks with the height so it stays clear of the mark. */
+  .firstLine {
+    display: block;
+  }
+
+  .name {
+    font-size: min(var(--fs-h1), 8.5svh);
+  }
+
+  .text {
+    gap: var(--space-3);
+    max-width: 60%;
+    padding-bottom: var(--space-6);
+  }
+
+  .tick {
+    height: 92px;
+  }
+
+  .tick i {
+    animation-name: tick-run-tall;
+  }
+
+  .copyLong {
+    display: inline;
+  }
+}
+
+@keyframes tick-run-tall {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  15% {
+    opacity: 0.9;
+  }
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(87px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .text {
+    max-width: none;
+  }
+
+  .firstLine {
+    white-space: nowrap;
+  }
+}
+
+/* 1200px and up: text indents to 128px. */
+@media (min-width: 1200px) {
+  .text {
+    padding-left: var(--space-16);
+  }
+}

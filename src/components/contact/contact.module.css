@@ -1,0 +1,262 @@
+/*
+ * Contact: dark scene. Heading and links on top; below, a cream arc rises
+ * and a black ring holds the purple "Let's talk" ball.
+ */
+
+/* One screen: heading on top, the arc/ring/ball scene fills the rest (at
+   least 46% of the height), so the ball always lands in view. */
+.contact {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  overflow: hidden;
+  padding-top: var(--space-16);
+  background: radial-gradient(80% 50% at 50% 0%, var(--ink-raised) 0%, var(--ink) 70%);
+}
+
+.head {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0 var(--edge);
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  max-width: 18ch;
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.sub {
+  margin: 0;
+  max-width: 52ch;
+  color: var(--nav-grey);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1) var(--space-3);
+  font-size: var(--fs-body);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--space-6);
+  padding: 0 var(--space-3);
+  border-radius: var(--space-3);
+  background: var(--paper);
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color var(--dur-fast) var(--ease);
+}
+
+.pill:hover {
+  background: var(--accent);
+}
+
+/* Scene */
+
+.scene {
+  position: relative;
+  flex: 1 0 46svh;
+  margin-top: var(--space-4);
+}
+
+.arc {
+  position: absolute;
+  top: 16%;
+  left: 50%;
+  width: 240vw;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--paper);
+  translate: -50% 0;
+}
+
+.ring {
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  z-index: 2;
+  width: 92vw;
+  aspect-ratio: 1;
+  border: 24vw solid var(--ink);
+  border-radius: 50%;
+  translate: -50% 0;
+}
+
+/* The ball rests in the ring's hole; --ball-y and --ball-s drive the toss
+   (contact-scene.tsx). It starts behind the ring and ends in front of it. */
+.ball {
+  --ball-y: 55vh;
+  --ball-s: 0.16;
+
+  position: absolute;
+  top: calc(72% - var(--space-16) / 2);
+  left: 50%;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: var(--space-16);
+  height: var(--space-16);
+  margin-left: calc(-1 * var(--space-16) / 2);
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ink);
+  line-height: 1.04;
+  text-align: center;
+  text-decoration: none;
+  transform: translateY(var(--ball-y)) scale(var(--ball-s));
+  will-change: transform;
+  transition:
+    background-color 0.3s ease,
+    scale 0.35s var(--ease);
+}
+
+.ball.inFront {
+  z-index: 3;
+}
+
+.ball span {
+  font-size: calc(var(--space-16) * 0.16);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.ball em {
+  font-size: 1.2em;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.ball.ready span {
+  opacity: 1;
+}
+
+/* Hover: two thin rings tumble around the ball like an
+   atom, and the ball swells a little. */
+.ball::before,
+.ball::after {
+  content: "";
+  position: absolute;
+  inset: -19%;
+  border: 2px solid var(--paper);
+  border-radius: 50%;
+  mix-blend-mode: difference;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.ball::before {
+  inset: -30%;
+}
+
+.ball.ready:hover,
+.ball.ready:focus-visible {
+  background: color-mix(in srgb, var(--accent) 90%, var(--ink));
+  outline: none;
+  scale: 1.07;
+}
+
+.ball.ready:hover::after,
+.ball.ready:focus-visible::after {
+  opacity: 1;
+  animation: atom-ring 5s linear infinite;
+}
+
+.ball.ready:hover::before,
+.ball.ready:focus-visible::before {
+  opacity: 1;
+  animation: atom-ring-two 7s linear infinite;
+}
+
+@keyframes atom-ring {
+  from {
+    transform: rotateZ(0deg) rotateX(0deg);
+  }
+  to {
+    transform: rotateZ(360deg) rotateX(720deg);
+  }
+}
+
+@keyframes atom-ring-two {
+  from {
+    transform: rotateZ(-24deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateZ(-384deg) rotateY(-720deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ball.ready:hover::after,
+  .ball.ready:focus-visible::after,
+  .ball.ready:hover::before,
+  .ball.ready:focus-visible::before {
+    animation: none;
+  }
+
+  .ball.ready:hover,
+  .ball.ready:focus-visible {
+    scale: 1;
+  }
+}
+
+.top {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--space-6);
+  padding: 0 var(--space-2);
+  color: var(--nav-grey);
+  font-size: var(--fs-small);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.top:hover {
+  color: var(--paper);
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--fs-h1);
+  }
+
+  .arc {
+    top: 12%;
+    width: 180vw;
+  }
+
+  .ring {
+    top: 40%;
+    width: 44vw;
+    border-width: 13vw;
+  }
+
+  .ball {
+    top: calc(68% - var(--space-16) * 0.75);
+    width: calc(var(--space-16) * 1.5);
+    height: calc(var(--space-16) * 1.5);
+    margin-left: calc(-1 * var(--space-16) * 0.75);
+  }
+
+  .ball span {
+    font-size: calc(var(--space-16) * 1.5 * 0.16);
+  }
+}

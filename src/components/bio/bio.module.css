@@ -1,0 +1,186 @@
+/*
+ * Bio: dark scene. Desktop: left column pinned (sticky) with "Bio/" and the
+ * part keys; right column scrolls. Mobile: keys hidden, each part shows its
+ * own purple heading. Split follows build.md's 1.15fr / 1fr.
+ */
+
+.bio {
+  position: relative;
+  display: grid;
+  gap: var(--space-6);
+  padding: var(--space-16) var(--edge) var(--space-12);
+  background: radial-gradient(90% 60% at 20% 0%, var(--ink-raised) 0%, var(--ink) 70%);
+}
+
+.keys {
+  display: flex;
+  flex-direction: column;
+}
+
+.bioTitle {
+  margin: 0;
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.keyList {
+  display: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.key {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--space-6);
+  color: var(--paper);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: 1.15;
+  text-decoration: none;
+  transition: color var(--dur-panel) var(--ease);
+}
+
+.key:hover,
+.key[aria-current="true"] {
+  color: var(--accent);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.part {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  scroll-margin-top: var(--space-16);
+}
+
+.partTitle {
+  margin: 0;
+  color: var(--accent);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.lead {
+  margin: 0;
+  font-size: var(--fs-lead);
+  line-height: 1.24;
+  letter-spacing: 0.01em;
+}
+
+.lead b {
+  font-weight: 700;
+}
+
+.accent {
+  color: var(--accent);
+}
+
+.issuer {
+  color: var(--muted);
+}
+
+.note {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+}
+
+.roles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.role {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.meta {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-small);
+  letter-spacing: var(--track-small);
+}
+
+.points {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: var(--space-1) 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--fs-body);
+  line-height: 1.5;
+}
+
+.points li {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.points li::before {
+  content: "";
+  flex: none;
+  width: var(--space-1);
+  height: var(--space-1);
+  margin-top: 0.55em;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+@media (min-width: 768px) {
+  .bio {
+    grid-template-columns: 1fr 1.15fr;
+    gap: var(--space-12);
+    padding-block: var(--space-16);
+  }
+
+  .keys {
+    position: sticky;
+    top: var(--space-16);
+    align-self: start;
+    gap: var(--space-3);
+  }
+
+  .keyList {
+    display: flex;
+    flex-direction: column;
+    padding-left: var(--space-12);
+  }
+
+  /* On desktop the keys do the job of the headings. */
+  .partTitle {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  .content {
+    gap: var(--space-16);
+    padding-top: var(--space-2);
+  }
+}
+
+@media (min-width: 1200px) {
+  .bio {
+    padding-inline: var(--space-16) var(--edge);
+  }
+}

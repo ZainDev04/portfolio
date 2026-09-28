@@ -1,0 +1,194 @@
+/*
+ * Manifest. A 320vh scroll area with a sticky full-screen stage; the purple
+ * panel is revealed through a growing clip-path circle (see manifest-scene).
+ * Text on purple is ink (6.7:1 or better on all three accents).
+ */
+
+.scroll {
+  position: relative;
+  height: 320vh;
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--ink);
+}
+
+.panel {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  background: var(--accent);
+  color: var(--ink);
+  clip-path: circle(0 at 50% 115%);
+  transition: background-color var(--dur-panel) var(--ease);
+}
+
+/* Two faint concentric rings behind the text. */
+.rings {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  pointer-events: none;
+}
+
+.rings span {
+  position: absolute;
+  border: var(--space-12) solid color-mix(in srgb, var(--paper) 22%, transparent);
+  border-radius: 50%;
+  translate: -50% -50%;
+}
+
+.rings span:first-child {
+  width: 150vmin;
+  height: 150vmin;
+}
+
+.rings span:last-child {
+  width: 60vmin;
+  height: 60vmin;
+  border-width: var(--space-8);
+}
+
+.content {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: safe center;
+  gap: var(--space-3);
+  padding: var(--space-12) var(--edge) var(--space-4);
+  transform-origin: top left;
+}
+
+.label {
+  margin: 0;
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+}
+
+.headline {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-size: var(--fs-display);
+  font-weight: 700;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+/* "Measured" gets struck through as you scroll (driven by --strike). */
+.strike {
+  --strike: 0;
+
+  position: relative;
+  display: inline-block;
+}
+
+.strike::after {
+  content: "";
+  position: absolute;
+  top: 52%;
+  left: -2%;
+  width: 104%;
+  height: 0.09em;
+  background: currentColor;
+  transform: scaleX(var(--strike));
+  transform-origin: left center;
+}
+
+.lower {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.number {
+  margin: 0;
+  font-size: var(--fs-display);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.caption {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  font-size: var(--fs-small);
+  font-weight: 700;
+  letter-spacing: var(--track-small);
+}
+
+.rule {
+  flex: none;
+  width: var(--space-6);
+  height: 1px;
+  background: currentColor;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: 60ch;
+}
+
+.copy p {
+  margin: 0;
+  font-size: var(--fs-body);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+@media (min-width: 768px) {
+  /* Desktop also holds the project sphere, so the scene runs longer. */
+  .scroll {
+    height: 560vh;
+  }
+
+  .content {
+    gap: var(--space-6);
+    padding-top: var(--space-16);
+  }
+
+  .lower {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    align-items: end;
+    gap: var(--space-12);
+  }
+
+  .copy {
+    gap: var(--space-3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll {
+    height: auto;
+  }
+
+  .stage {
+    position: relative;
+    height: auto;
+    min-height: 100svh;
+  }
+
+  .panel {
+    position: relative;
+    min-height: 100svh;
+  }
+}
