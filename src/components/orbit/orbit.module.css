@@ -165,6 +165,17 @@
   top: var(--space-12);
 }
 
+/* Flat full-resolution copy laid over the card flown to the front. */
+.sharp {
+  position: absolute;
+  z-index: 6001;
+  border-radius: 6px;
+  object-fit: cover;
+  visibility: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
 /* Caption under a card flown to the front. */
 .caption {
   position: absolute;
@@ -361,6 +372,13 @@
 
 .progress span[data-paused] {
   animation-play-state: paused;
+}
+
+/* No autoplay with reduced motion, so no bar either. */
+@media (prefers-reduced-motion: reduce) {
+  .progress {
+    visibility: hidden;
+  }
 }
 
 @keyframes fill {

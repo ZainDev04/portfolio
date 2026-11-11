@@ -38,6 +38,9 @@ const FOCUS_FILL = 0.62;
 const FOCUS_DIM = 0.45;
 const CLICK_SLOP = 6;
 const ROW_STEP_MS = 4200;
+// The sharp flat copy of a focused card fades in over the last 15% of its
+// flight, once the card faces the screen squarely enough that the two line up.
+const SHARP_FROM = 0.85;
 const DEG = Math.PI / 180;
 
 const easeOutCubic = (t: number) => 1 - (1 - t) ** 3;
@@ -62,6 +65,7 @@ export function OrbitSphere({
   const hintRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const captionRef = useRef<HTMLDivElement>(null);
+  const sharpRef = useRef<HTMLImageElement>(null);
   const focusedRef = useRef<number | null>(null);
   const [focused, setFocused] = useState<number | null>(null);
   const [rowView, setRowView] = useState(false);
@@ -287,6 +291,35 @@ export function OrbitSphere({
       }
       const caption = captionRef.current;
       if (caption) caption.style.opacity = String(Math.max(0, fe - 0.6) / 0.4);
+
+      // A card flown to the front is magnified by the 3D transform, and the
+      // browser magnifies the bitmap it painted at sphere size, so it looks
+      // soft. Over the last stretch of the flight, fade in a flat copy of its
+      // image that tracks the card every frame: a flat image is painted at
+      // full resolution, and the fade blends soft into sharp with no jump.
+      // It ignores the pointer, so clicks still reach the sphere.
+      const sharp = sharpRef.current;
+      if (sharp) {
+        const shown = current !== null ? current : focusAmt > 0 ? lastFocused : null;
+        const card = shown !== null ? cards[shown] : undefined;
+        const el = shown !== null ? cardRefs.current[shown] : null;
+        const alpha = Math.max(0, Math.min(1, (fe - SHARP_FROM) / (1 - SHARP_FROM)));
+        if (card?.src && el && alpha > 0) {
+          const r = el.getBoundingClientRect();
+          const l = layer.getBoundingClientRect();
+          if (sharp.getAttribute("src") !== card.src) sharp.src = card.src;
+          sharp.alt = card.alt;
+          sharp.style.left = `${r.left - l.left}px`;
+          sharp.style.top = `${r.top - l.top}px`;
+          sharp.style.width = `${r.width}px`;
+          sharp.style.height = `${r.height}px`;
+          sharp.style.opacity = alpha.toFixed(3);
+          sharp.style.visibility = "visible";
+        } else if (sharp.style.visibility !== "hidden") {
+          sharp.style.visibility = "hidden";
+          sharp.style.opacity = "0";
+        }
+      }
     };
     frame = requestAnimationFrame(tick);
 
@@ -357,13 +390,6 @@ export function OrbitSphere({
     };
   }, [cards, control, focus]);
 
-  // Row view autoplay.
-  useEffect(() => {
-    if (!rowView || rowPaused || prefersReducedMotion()) return;
-    const timer = window.setTimeout(() => showRow(rowIndex + 1, 1), ROW_STEP_MS);
-    return () => window.clearTimeout(timer);
-  }, [rowView, rowPaused, rowIndex, showRow]);
-
   const focusedProject = focused !== null ? project(cards[focused].slug) : undefined;
   const rowCard = cards[rowIndex];
   const rowProject = project(rowCard.slug);
@@ -404,6 +430,10 @@ export function OrbitSphere({
         </div>
       </div>
 
+      {/* Flat, full-resolution copy of the focused card (see the sphere loop). */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img ref={sharpRef} className={styles.sharp} alt="" draggable={false} aria-hidden="true" />
+
       <div ref={hintRef} className={styles.hint} aria-hidden="true">
         <span>Drag</span>
         <span>to</span>
@@ -443,9 +473,11 @@ export function OrbitSphere({
       {rowView ? (
         <div
           className={styles.row}
-          onMouseEnter={() => setRowPaused(true)}
-          onMouseLeave={() => setRowPaused(false)}
-          onFocus={() => setRowPaused(true)}
+          // Keyboard focus pauses autoplay; focus left on a button by a mouse
+          // click does not, or one click on an arrow would stop it for good.
+          onFocus={(event) => {
+            if ((event.target as Element).matches(":focus-visible")) setRowPaused(true);
+          }}
           onBlur={() => setRowPaused(false)}
         >
           <div className={styles.strip}>
@@ -464,6 +496,15 @@ export function OrbitSphere({
                   onClick={() => {
                     if (!main) showRow(index, offset > 0 ? 1 : -1);
                   }}
+                  // Pause while the pointer really moves over the main image.
+                  // The image opening under a still pointer (right after the
+                  // toggle is clicked) is not a hover and must not pause.
+                  onPointerMove={(event) => {
+                    if (main && (event.movementX || event.movementY)) setRowPaused(true);
+                  }}
+                  onPointerLeave={() => {
+                    if (main) setRowPaused(false);
+                  }}
                   aria-label={main ? `${info?.title}, current` : `Show ${info?.title}`}
                   tabIndex={main ? -1 : 0}
                 >
@@ -480,8 +521,18 @@ export function OrbitSphere({
               );
             })}
           </div>
+          {/* The bar drives autoplay: when its fill animation ends, the row
+              moves on. Pausing freezes the bar where it is instead of
+              restarting it, and the timing can never drift from the bar. */}
           <div className={styles.progress} aria-hidden="true">
-            <span key={`${rowIndex}-${rowPaused}`} data-paused={rowPaused || undefined} />
+            <span
+              key={rowIndex}
+              style={{ animationDuration: `${ROW_STEP_MS}ms` }}
+              data-paused={rowPaused || undefined}
+              onAnimationEnd={() => {
+                if (!prefersReducedMotion()) showRow(rowIndex + 1, 1);
+              }}
+            />
           </div>
           <div key={`caption-${rowIndex}`} className={styles.rowCaption} data-dir={rowDir || undefined}>
             {rowProject ? <Caption info={rowProject} /> : null}
