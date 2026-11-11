@@ -15,9 +15,10 @@ export function Skills() {
 
         <div className={styles.card} data-skills-card data-cursor-theme="ink">
           <p>Python first. Most projects run from a notebook to an API in the same repository, with tests and CI.</p>
-          <p>Retrieval: BM25, dense embeddings and FAISS, each benchmarked on the same questions before I pick one.</p>
-          <p>Models: scikit-learn and XGBoost for tabular data, PyTorch and Transformers for text, SHAP when someone needs to know why.</p>
-          <p>Shipping: FastAPI, Flask and Streamlit, deployed on Vercel and Render.</p>
+          <p>Deep learning: PyTorch for vision models, from a Vision Transformer written from scratch to ArcFace face recognition.</p>
+          <p>LLMs: LangGraph agents, Gemini and MCP, with retrieval (BM25, dense embeddings, FAISS) benchmarked on the same questions.</p>
+          <p>Classical ML: scikit-learn and XGBoost for tabular data, SHAP when someone needs to know why.</p>
+          <p>Shipping: FastAPI, Flask, Docker and PostgreSQL, deployed on Vercel and Render.</p>
           <dl className={styles.areas}>
             {skillRings.map((ring) => (
               <div key={ring.label}>

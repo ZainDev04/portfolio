@@ -19,7 +19,7 @@ const jsonLd = {
   address: { "@type": "PostalAddress", addressLocality: "Karachi", addressCountry: "PK" },
   alumniOf: { "@type": "CollegeOrUniversity", name: "NED University of Engineering and Technology" },
   sameAs: [person.github, person.linkedin],
-  knowsAbout: ["Machine learning", "Retrieval-augmented generation", "Information retrieval", "Python"],
+  knowsAbout: ["Machine learning", "Deep learning", "Computer vision", "LLM agents", "Retrieval-augmented generation", "Python"],
   workExample: projects
     .filter((p) => p.live || p.code)
     .map((p) => ({ "@type": "CreativeWork", name: p.title, url: p.live ?? p.code })),

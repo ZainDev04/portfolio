@@ -23,7 +23,7 @@ export default async function Image() {
         <div style={{ position: "absolute", left: 1000, top: 30, width: 180, height: 180, borderRadius: 9999, background: "#B481F8" }} />
         <div style={{ position: "absolute", left: 1010, top: 236, width: 72, height: 72, borderRadius: 9999, background: "#EDEBE6" }} />
         <div style={{ position: "absolute", left: 72, bottom: 72, display: "flex", flexDirection: "column", gap: 16 }}>
-          <div style={{ fontSize: 28, fontWeight: 700, color: "#B481F8" }}>retrieval · learning · deployment</div>
+          <div style={{ fontSize: 28, fontWeight: 700, color: "#B481F8" }}>vision · agents · deployment</div>
           <div style={{ display: "flex", flexDirection: "column", fontSize: 76, fontWeight: 700, lineHeight: 1 }}>
             <span>Shaikh Muhammad</span>
             <span style={{ display: "flex" }}>

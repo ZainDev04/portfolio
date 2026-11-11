@@ -27,8 +27,10 @@ export function Bio() {
             intelligence and graduating in August 2027.
           </p>
           <p className={styles.lead}>
-            I work on retrieval systems and supervised learning, and on getting models out of notebooks into something a
-            person can run. Right now I&apos;m building <b className={styles.accent}>StepGuard</b>, my final year project.
+            I build deep learning, computer vision and LLM systems, test them on held-out data, and get them out of
+            notebooks into something a person can run. My face recognition pipeline was runner-up of 50 university teams
+            at NED CSIT TechFest &apos;26. Right now I&apos;m building <b className={styles.accent}>StepGuard</b>, my
+            final year project.
           </p>
           <p className={styles.note}>Coursework: {coursework.join(" · ")}.</p>
         </article>
@@ -72,15 +74,18 @@ export function Bio() {
 
         <article id="bio-certifications" className={styles.part} data-bio-part>
           <h3 className={styles.partTitle}>Certifications</h3>
-          <p className={styles.lead}>
-            {certifications.map((cert, i) => (
-              <span key={cert.name}>
-                {cert.name}
-                {cert.issuer ? <span className={styles.issuer}> ({cert.issuer})</span> : null}
-                {i < certifications.length - 1 ? " · " : "."}
-              </span>
+          <ul className={styles.points}>
+            {certifications.map((cert) => (
+              <li key={cert.name}>
+                <span>
+                  {cert.name}
+                  {cert.issuer || cert.date ? (
+                    <span className={styles.issuer}> · {[cert.issuer, cert.date].filter(Boolean).join(" · ")}</span>
+                  ) : null}
+                </span>
+              </li>
             ))}
-          </p>
+          </ul>
         </article>
       </div>
     </section>

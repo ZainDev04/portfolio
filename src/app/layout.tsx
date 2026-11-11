@@ -19,13 +19,13 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 const description =
-  "Machine learning engineer in Karachi. Final-year CS (AI) at NED University. Retrieval systems, supervised learning pipelines and the APIs around them, with live demos and the numbers.";
+  "Machine learning engineer in Karachi. Final-year CS (AI) at NED University. Deep learning, computer vision and LLM agent systems, tested on held-out data and shipped with live demos and the numbers.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "Shaikh Muhammad Zain, machine learning engineer",
   description,
-  keywords: ["Shaikh Muhammad Zain", "machine learning engineer", "RAG", "FAISS", "Karachi", "NED University", "portfolio"],
+  keywords: ["Shaikh Muhammad Zain", "machine learning engineer", "computer vision", "PyTorch", "LLM agents", "RAG", "Karachi", "NED University", "portfolio"],
   authors: [{ name: "Shaikh Muhammad Zain", url: "https://github.com/ZainDev04" }],
   alternates: { canonical: "/" },
   openGraph: {

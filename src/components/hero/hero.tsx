@@ -8,7 +8,7 @@ export function Hero() {
   return (
     <HeroStage>
       <div className={styles.text}>
-        <p className={styles.claim}>retrieval&nbsp;· learning&nbsp;· deployment</p>
+        <p className={styles.claim}>vision&nbsp;· agents&nbsp;· deployment</p>
         <h1 id="hero-name" className={styles.name}>
           <span className={styles.firstLine}>Shaikh Muhammad</span>{" "}
           <span className={styles.nowrap}>

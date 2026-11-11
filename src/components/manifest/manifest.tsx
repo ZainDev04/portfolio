@@ -25,11 +25,11 @@ export function Manifest() {
         <div className={styles.lower}>
           <div className={styles.result} data-manifest-part>
             <p className={styles.number}>
-              0.24&nbsp;→&nbsp;0.74.
+              25.4%&nbsp;→&nbsp;2.9%.
             </p>
             <p className={styles.caption}>
               <span className={styles.rule} aria-hidden="true" />
-              Precision@50 at FlyRank, over the hand-written baseline
+              Face verification error once faces are aligned, TechFest runner-up pipeline
             </p>
           </div>
 
