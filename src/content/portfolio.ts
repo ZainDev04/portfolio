@@ -179,6 +179,23 @@ export const projects: Project[] = [
     live: "https://smart-parking-krr.vercel.app",
     code: "https://github.com/ZainDev04/smart-parking-krr",
   },
+  {
+    slug: "tether",
+    title: "Tether",
+    year: "2026",
+    context: "Claude Code on my home PC, from my phone",
+    summary:
+      "A private phone web app for working on my PC from anywhere: chat with Claude Code, a PowerShell terminal and a file browser. It runs the installed Claude Code through the Claude Agent SDK, so edits and commands wait for my approval on the phone, and it is reachable only over Tailscale with a password.",
+    results: [
+      "Found and fixed a login bypass in my own security review",
+      "35 automated tests, including the security fixes",
+      "Push notifications when Claude finishes or needs approval",
+    ],
+    stack: ["TypeScript", "Node.js", "Fastify", "React", "Claude Agent SDK", "Tailscale", "xterm.js"],
+    image: "/work/tether.webp",
+    imageAlt: "Tether on an iPhone: Claude chat with an edit to approve, PowerShell terminal and file browser.",
+    code: "https://github.com/ZainDev04/tether",
+  },
 ];
 
 // Cards on the desktop orbit sphere: real screenshots from each project, in
@@ -202,6 +219,7 @@ export const orbitCards: OrbitCard[] = [
   card("git-search", "gitsearch-a", 1600, 1000, "Right commit at rank 1: dense 20 of 22, BM25 17 of 22"),
   card("stepguard", "stepguard-a", 1600, 1000, "StepGuard method: find the first failing step and repair it"),
   card("parking", "parking-a", 1600, 1000, "3D campus car park after the morning rush"),
+  card("tether", "tether-a", 1600, 1000, "Tether on an iPhone: Claude chat, terminal and files"),
   card("leash", "leash-b", 1600, 1000, "Leash: the four checks every payment passes"),
   card("vit", "vit-b", 1600, 1000, "Final accuracy at 25, 50 and 100 epochs, mimetic against base"),
   card("ccpp", "ccpp-b", 1600, 1000, "Every degree costs about 2.2 MW"),
