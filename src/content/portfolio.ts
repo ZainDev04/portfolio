@@ -260,7 +260,7 @@ export const experience: Role[] = [
 ];
 
 export const education = [
-  { school: "NED University of Engineering and Technology", detail: "BS Computer Science, specialisation in Artificial Intelligence, CGPA 3.4/4.0", dates: "2023 – 2027" },
+  { school: "NED University of Engineering and Technology", detail: "BS Computer Science, specialisation in Artificial Intelligence, CGPA 3.8/4.0", dates: "2023 – 2027" },
   { school: "DJ Sindh Government Science College", detail: "Intermediate, pre-engineering", dates: "2020 – 2022" },
   { school: "Al-Jauhar Grammar School", detail: "Matriculation, computer science", dates: "2020" },
 ];
