@@ -1,18 +1,18 @@
 # Shaikh Muhammad Zain · Portfolio
 
-Personal site of Shaikh Muhammad Zain, a final-year Computer Science (AI) student at NED University, Karachi, working on retrieval systems, supervised learning and the APIs around them.
+Personal site of Shaikh Muhammad Zain, a machine learning engineer in Karachi and final-year Computer Science (AI) student at NED University. The work covers deep learning, computer vision and LLM agent systems, tested on held-out data and shipped with live demos and the numbers.
 
 **Live:** [shaikh-muhammad-zain.vercel.app](https://shaikh-muhammad-zain.vercel.app)
 
-![Hero: the orbiting mark and the name](docs/hero.jpg)
+![Hero: the orbiting mark, the name and "vision · agents · deployment"](docs/hero.jpg)
 
 ## What's on the site
 
 | Section | What it shows |
 |---|---|
-| Hero | The name, a one-line claim and an orbiting mark. Clicking pulls the two satellites into elliptical orbits aimed at the click point, with live orbit guides. On scroll the mark flies to the top left and docks as the logo. |
-| Approach | A purple disc grows out of the hero and fills the screen with a short statement of how I work, next to the Precision@50 result from FlyRank (0.24 → 0.74). |
-| Work | The purple disc shrinks to reveal a 3D sphere of project screenshots that you can drag, hover and click, with a row view that auto-advances. Below it, an index of six projects with results, stack and links to the live demo, code or paper. |
+| Hero | The name, the focus (vision · agents · deployment) and an orbiting mark. Clicking pulls the two satellites into elliptical orbits aimed at the click point, with live orbit guides. On scroll the mark flies to the top left and docks as the logo. |
+| Approach | A purple disc grows out of the hero and fills the screen with a short statement of how I work, next to the TechFest face recognition result: verification error 25.4% → 2.9% once faces are aligned. |
+| Work | The purple disc shrinks to reveal a 3D sphere of project screenshots that you can drag, hover and click, with a row view that auto-advances. Below it, an index of ten projects with results, stack and links to the live demo, code or paper. |
 | Skills | Rings for each skill area with the tools used in each. |
 | Bio | Story, experience, education and certifications, with a pinned index that follows the scroll. |
 | Contact | Email, LinkedIn, GitHub and a resume download. The "Let's talk" ball is tossed into place and opens an email. |
@@ -21,20 +21,26 @@ Personal site of Shaikh Muhammad Zain, a final-year Computer Science (AI) studen
 |---|---|
 | ![Approach section](docs/manifest.jpg) | ![Project sphere](docs/orbit.jpg) |
 
-| Contact | Mobile |
+| Projects | Contact |
 |---|---|
-| ![Contact section](docs/contact.jpg) | <img src="docs/mobile.jpg" alt="Mobile hero" width="260"> |
+| ![Project index](docs/projects.jpg) | ![Contact section](docs/contact.jpg) |
+
+<img src="docs/mobile.jpg" alt="Mobile hero" width="260">
 
 ## Projects featured
 
 | Project | Result | Links |
 |---|---|---|
+| Face recognition, NED CSIT TechFest (runner-up of 50 teams) | 97.1% accuracy, 2.9% EER on 40 held-out South Asian people; 25.4% without alignment | |
+| Leash, payment guardrails for AI agents (PayPal AI Hackathon) | Code checks every payment; any Gemini or PayPal failure blocks it | [Live](https://leash-b2xx.onrender.com) · [Code](https://github.com/ZainDev04/leash) |
+| Mimetic initialization, reproduced (ICML 2023) | CIFAR-10 test accuracy 85.13% → 88.87% with mimetic init | [Code](https://github.com/ZainDev04/mimetic-init-vit) |
+| FlyRank ML internship | 18,752 pages from 29 client sites clustered into archetypes; leave-one-client-out ARI 0.909 | [Paper](https://zaindev04.github.io/Flyrank-ML-Internship/) · [Code](https://github.com/ZainDev04/Flyrank-ML-Internship) |
+| Power plant output prediction | KNN R² 0.959, RMSE 3.45 MW on 1,906 held-out hours | [Live](https://ccpp-power-prediction.vercel.app) · [Code](https://github.com/ZainDev04/ccpp-power-prediction) |
 | EduPulse, student performance intelligence | At-risk ROC-AUC 0.742 (CV), math-score R² 0.882 on hold-out | [Live](https://edupulse-ml.vercel.app) · [Code](https://github.com/ZainDev04/edupulse) |
-| FlyRank ML internship | Precision@50 from 0.24 to 0.74; 30k to 79M rows with DuckDB | [Paper](https://zaindev04.github.io/Flyrank-ML-Internship/) · [Code](https://github.com/ZainDev04/Flyrank-ML-Internship) |
 | Semantic search over Git history | Right commit at rank 1 for 20 of 22 questions (dense) vs 17 (BM25) | [Code](https://github.com/ZainDev04/Semantic-Search-Engine-RAG-FAISS) |
-| Nova, rule-based chatbot | 34 intents, five matching tiers, every reply traceable | [Live](https://nova-rule-based-chatbot.vercel.app) · [Code](https://github.com/ZainDev04/Rule-based-chatbot) |
-| Iris species classifier | 96.0% five-fold cross-validated accuracy | [Live](https://iris-knn.vercel.app) · [Code](https://github.com/ZainDev04/iris-classifier) |
-| StepGuard, final year project | Hallucination detection for LangGraph agents, in progress | |
+| Tether, Claude Code on my home PC from my phone | Login bypass found and fixed in my own review; 35 automated tests | [Code](https://github.com/ZainDev04/tether) |
+| StepGuard, final year project | Step-level hallucination detection for LangGraph agents, in progress | |
+| Smart parking reasoning (KRR course project) | 28 rules; Python engine matches SWI-Prolog (105 conclusions each) | [Live](https://smart-parking-krr.vercel.app) · [Code](https://github.com/ZainDev04/smart-parking-krr) |
 
 ## Built with
 
