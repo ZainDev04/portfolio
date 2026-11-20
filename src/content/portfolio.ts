@@ -10,7 +10,7 @@ export const person = {
   github: "https://github.com/ZainDev04",
   linkedin: "https://www.linkedin.com/in/shaikh-muhammad-zain/",
   resume: "/Shaikh-Muhammad-Zain-Resume.pdf",
-  lookingFor: "Remote or international ML internships and junior ML engineer roles.",
+  lookingFor: "AI/ML engineer roles and internships, remote or international.",
 };
 
 export type Project = {
