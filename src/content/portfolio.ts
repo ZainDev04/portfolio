@@ -197,6 +197,23 @@ export const projects: Project[] = [
     live: "https://smart-parking-krr.vercel.app",
     code: "https://github.com/ZainDev04/smart-parking-krr",
   },
+  {
+    slug: "nilm",
+    title: "Inside the Meter",
+    year: "2026",
+    context: "Neural network course project (CT-466), team of four",
+    summary:
+      "Splits a home's single smart-meter reading into four appliances (air conditioner, refrigerator, clothes dryer and furnace fan), minute by minute, using real Pecan Street data from Austin homes. We compared an MLP baseline with a 1D-CNN + GRU, then trained eight architectures on the same budget and tested every model on a home it never saw.",
+    results: [
+      "1D-CNN + GRU: furnace fan macro-F1 0.95 on held-out weeks, MLP 0.88",
+      "Mean error 30 W per appliance, against 53 W for the MLP",
+      "On the unseen home the deep models' lead mostly disappears, and the report says so",
+    ],
+    stack: ["Python", "PyTorch", "pandas", "CNN", "GRU", "Three.js"],
+    image: "/work/nilm.webp",
+    imageAlt: "Inside the Meter: a 3D street of Austin homes next to one house's meter reading split into four appliances.",
+    live: "https://inside-the-meter.vercel.app",
+  },
 ];
 
 // Cards on the desktop orbit sphere: real screenshots from each project, in

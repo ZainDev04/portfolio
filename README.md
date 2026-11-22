@@ -41,6 +41,7 @@ Personal site of Shaikh Muhammad Zain, a machine learning engineer in Karachi an
 | Tether, Claude Code on my home PC from my phone | Login bypass found and fixed in my own review; 35 automated tests | [Code](https://github.com/ZainDev04/tether) |
 | StepGuard, final year project | Step-level hallucination detection for LangGraph agents, in progress | |
 | Smart parking reasoning (KRR course project) | 28 rules; Python engine matches SWI-Prolog (105 conclusions each) | [Live](https://smart-parking-krr.vercel.app) · [Code](https://github.com/ZainDev04/smart-parking-krr) |
+| Inside the Meter, energy disaggregation (ANN course project) | 1D-CNN + GRU: furnace fan macro-F1 0.95 vs 0.88 (MLP); mean error 30 W vs 53 W | [Live](https://inside-the-meter.vercel.app) |
 
 ## Built with
 
