@@ -45,6 +45,7 @@ export const projects: Project[] = [
     stack: ["Python", "PyTorch", "InsightFace", "ArcFace", "ONNX"],
     image: "/work/techfest.webp",
     imageAlt: "Bar chart: face verification error rate is 2.9% with the full pipeline and 25.4% without alignment.",
+    code: "https://github.com/maazrehman99/techfest-face",
   },
   {
     slug: "leash",

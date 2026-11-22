@@ -31,7 +31,7 @@ Personal site of Shaikh Muhammad Zain, a machine learning engineer in Karachi an
 
 | Project | Result | Links |
 |---|---|---|
-| Face recognition, NED CSIT TechFest (runner-up of 50 teams) | 97.1% accuracy, 2.9% EER on 40 held-out South Asian people; 25.4% without alignment | |
+| Face recognition, NED CSIT TechFest (runner-up of 50 teams) | 97.1% accuracy, 2.9% EER on 40 held-out South Asian people; 25.4% without alignment | [Code](https://github.com/maazrehman99/techfest-face) |
 | Leash, payment guardrails for AI agents (PayPal AI Hackathon) | Code checks every payment; any Gemini or PayPal failure blocks it | [Live](https://leash-b2xx.onrender.com) · [Code](https://github.com/ZainDev04/leash) |
 | Mimetic initialization, reproduced (ICML 2023) | CIFAR-10 test accuracy 85.13% → 88.87% with mimetic init | [Code](https://github.com/ZainDev04/mimetic-init-vit) |
 | FlyRank ML internship | 18,752 pages from 29 client sites clustered into archetypes; leave-one-client-out ARI 0.909 | [Paper](https://zaindev04.github.io/Flyrank-ML-Internship/) · [Code](https://github.com/ZainDev04/Flyrank-ML-Internship) |
